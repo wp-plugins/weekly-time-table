@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Weekly TimeTable WP Plugin
-Plugin URI: http://blog.fifteenpeas.com/wordpress/wordpress-weekly-time-table/
+Plugin URI: http://www.fifteenpeas.com/blog/wordpress-weekly-time-table/
 Description: create weekly time tables and display them on your site.
-Version: 1.0
+Version: 1.2
 Author: X Villamuera
-Author URI: http://blog.fifteenpeas.com 
+Author URI: http://www.fifteenpeas.com
 */
 
 /*  Copyright 2010  X.Villamuera  (email : gzav@sio4.net)
@@ -37,10 +37,8 @@ define ("WTT_ENTRYTABLE",$wpdb->prefix . "wtt_ttentries");
 add_action('init', 'wttPlugIn_load_translation_file');
 
 function wttPlugIn_load_translation_file() {
-	load_plugin_textdomain( 'wttPlugIn', '', WTT_DIR_I18N );
+	load_plugin_textdomain( 'wttPlugIn', false, WTT_DIR_I18N );
 }
-	 
-
 
 	/*
 	** Database and app Installation function
@@ -50,7 +48,7 @@ function wttPlugIn_load_translation_file() {
 		function wtt_install () {
 		   global $wpdb;
 		   global $wtt_db_version;
-		   $wtt_db_version 		= "1.0"; 
+		   $wtt_db_version 		= "1.2";
 			
 			
 		   	//create timetables table
@@ -59,13 +57,13 @@ function wttPlugIn_load_translation_file() {
 		   	   	$sql = "CREATE TABLE " . WTT_TIMETABLE . " (
 						id INT NOT NULL AUTO_INCREMENT,
 						id_entry INT NOT NULL ,
-						mon VARCHAR( 25 ) NULL ,
-						tue VARCHAR( 25 ) NULL ,
-						wed VARCHAR( 25 ) NULL ,
-						thu VARCHAR( 25 ) NULL ,
-						fri VARCHAR( 25 ) NULL ,
-						sat VARCHAR( 25 ) NULL ,
-						sun VARCHAR( 25 ) NULL,
+						mon VARCHAR( 30 ) NULL ,
+						tue VARCHAR( 30 ) NULL ,
+						wed VARCHAR( 30 ) NULL ,
+						thu VARCHAR( 30 ) NULL ,
+						fri VARCHAR( 30 ) NULL ,
+						sat VARCHAR( 30 ) NULL ,
+						sun VARCHAR( 30 ) NULL,
 						UNIQUE KEY id (id)				
 						);";
 		   	   	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -80,12 +78,12 @@ function wttPlugIn_load_translation_file() {
 		  	if($wpdb->get_var("SHOW TABLES LIKE '".WTT_ENTRYTABLE."'") != WTT_ENTRYTABLE) {
 			    $sql = "CREATE TABLE " . WTT_ENTRYTABLE . " (
 					    id INT NOT NULL AUTO_INCREMENT,
-					    entryname VARCHAR( 120 ),
+					    entryname VARCHAR( 180 ),
 					    UNIQUE KEY id (id)
 					    );";
 			    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 				dbDelta($sql);
-				
+                            
 				// insert data
 				$sql ="insert into ".WTT_ENTRYTABLE." (entryname) values('Drugstore');";
 				$results = $wpdb->query( $sql );
@@ -102,8 +100,21 @@ function wttPlugIn_load_translation_file() {
 		  		//the new sql version (but this is fake)
 		  		$sql = "CREATE TABLE " . WTT_ENTRYTABLE . " (
 					    id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
-					    entryname VARCHAR( 120 )
+					    entryname VARCHAR( 180 )
 				   		);";
+				dbDelta($sql);
+                                $sql = "CREATE TABLE " . WTT_TIMETABLE . " (
+						id INT NOT NULL AUTO_INCREMENT,
+						id_entry INT NOT NULL ,
+						mon VARCHAR( 30 ) NULL ,
+						tue VARCHAR( 30 ) NULL ,
+						wed VARCHAR( 30 ) NULL ,
+						thu VARCHAR( 30 ) NULL ,
+						fri VARCHAR( 30 ) NULL ,
+						sat VARCHAR( 30 ) NULL ,
+						sun VARCHAR( 30 ) NULL,
+						UNIQUE KEY id (id)
+						);";
 				dbDelta($sql);
 				//change the version option of this plugin (not for this install)
 		    	update_option( "wtt_db_version", $wtt_db_version );
@@ -147,25 +158,27 @@ function wttPlugIn_load_translation_file() {
 			$outp .= "<p>This is an example:</p>";
 			$outp.= wttdsp(0);
 			$outp .= "<h2>".__('Usage','wttPlugIn')."</h2>";
-			$outp .= "<ol><li>You must first create an entry to create a Time Table</li>
-			<li>Create a time table. You can input whatever you want to display in the fields. The plugin doesn't format. However, length is limited to 25 caracters.</li>
-			<li>Each <em>Wtt time table</em> has an id that should be used when displaying it using the shortcode.</li>
-			<li>The shortcode to display the time table is <em><strong>[wttdsp entry_id=5]</strong></em>, where 5 is an id of a <em>time table</em>.</li>
-			<li>Use css to style your timetable. A time table as an <em>id='wtt'</em> attribute.<br/>
-			When displayed, the entry is in a container with attribute : <em>id='wttentry'</em>
-			As an example, this is the css that is used in the admin side :<br/><br/>
+			$outp .= __('You must first create an entry to create a Time Table.
+                        Then create a time table for that entry.<br/> You can input whatever you want to display in the fields.
+                        The plugin doesn\'t format. However, length is limited to 30 caracters. Each <em>Wtt time table</em> has
+                        an id that should be used when displaying it using the shortcode.<br/>
+			The shortcode to display the time table is <em><strong>[wttdsp entry_id=5]</strong></em>, where 5 
+                        is an id of a <em>time table</em>. You can put a list of IDs in the shortcode to have a
+                        multiple entries time table, just like this <em><strong>[wttdsp entry_id=5,17,9]</strong></em>.<br/>
+			Use css to style your timetable. A time table as an <em>id=\'wtt\'</em> attribute.<br/>
+			When displayed, the entry is in a container with attribute : <em>id=\'wttentry\'</em>
+			<br/><br/>As an example, this is the css that is used in the admin side :<br/>
 			<em>#wtt {padding:2px;}<br/>
 			#wtt th { background-color:#DDDDDD; padding:5px;}<br/>
 			#wtt tr { background-color:#EEEEEE;padding:5px;}<br/>
-			#wtt td {padding:3px; } </em></li>
-			<li>It's a simple plugin, feel free to adapt it at will !</li>
-			</ol>";
-			$outp .= '<div><table class="widefat" style="margin-top: .5em"><thead><tr valign="top">	
+			#wtt td {padding:3px; } </em>
+			<br/><br/>It\'s a simple plugin, feel free to adapt it at will !','wttPlugIn');
+			$outp .= '<br/><div><table class="widefat" style="margin-top: .5em"><thead><tr valign="top">
 			<th>Fifteenpeas Weekly Time Table WP plugin</th></tr></thead><tbody><tr>	
-			<td>Find me on <a href="http://blog.fifteenpeas.com" target="_blank">http://blog.fifteenpeas.com</a>.<br />	
-			The plugin homepage is at <a href="http://blog.fifteenpeas.com/wordpress/wordpress-weekly-time-table/" target="_blank">http://blog.fifteenpeas.com/wordpress/wordpress-weekly-time-table/</a>. 
-			Like the software? Did i help you? <a href="http://blog.fifteenpeas.com/donate/" target="_blank">Show your appreciation</a>. Thanks!</td></tr></tbody></table</div>';
-			$outp .= '</div>';
+			<td>Find me on <a href="http://www.fifteenpeas.com/goodies/wordpress-weekly-time-table-plugin/" target="_blank">http://www.fifteenpeas.com/goodies/wordpress-weekly-time-table-plugin/</a>.<br/>
+			The plugin homepage is at <a href="http://www.fifteenpeas.com/goodies/wordpress-weekly-time-table-plugin/" target="_blank">http://www.fifteenpeas.com/goodies/wordpress-weekly-time-table-plugin/</a>.
+			</td></tr></tbody></table></div>';
+			$outp .= '</div><!--end wrap -->';
 			echo $outp; 
 	}
 
@@ -199,7 +212,7 @@ function wttPlugIn_load_translation_file() {
 					$outp .= '<img src="'.WTT_DIR_URL.'/img/pencil.png" alt="edit a time table"/></a>&nbsp;&nbsp;';
 					$outp .= '<a href="'.$linkdel.'" title="delete an entry">';
 					$outp .= '<img src="'.WTT_DIR_URL.'/img/cross.png" alt="delete a time table"/></a></td>';
-					$outp .= '<td>'.$row->id.'</td><td> '.$row->entryname.'</td></tr>'; 
+					$outp .= '<td>'.$row->id.'</td><td> '.html_entity_decode($row->entryname).'</td></tr>';
 				}
 			}
 			if ($style == 1)
@@ -239,12 +252,12 @@ function wttPlugIn_load_translation_file() {
 				
 				$outp.= "<tr>";
 				if ($edition==1) { 
-					$outp.= '<td><a href="'.$linkedt.'" title="Edit a Time Table">';
-					$outp .= '<img src="'.WTT_DIR_URL.'/img/pencil.png" alt="edit a time table"/></a>&nbsp;&nbsp;';
-					$outp .= '<a href="'.$linkdel.'" title="delete a time table">';
-					$outp .= '<img src="'.WTT_DIR_URL.'/img/cross.png" alt="delete a time table"/></a></td>'; 
+					$outp.= '<td><a href="'.$linkedt.'" title="'.__('Edit a Time Table','wttPlugIn').'">';
+					$outp .= '<img src="'.WTT_DIR_URL.'/img/pencil.png" alt="'.__('edit a time table','wttPlugIn').'"/></a>&nbsp;&nbsp;';
+					$outp .= '<a href="'.$linkdel.'" title="'.__('delete a time table','wttPlugIn').'">';
+					$outp .= '<img src="'.WTT_DIR_URL.'/img/cross.png" alt="'.__('delete a time table','wttPlugIn').'"/></a></td>';
 				}
-				$outp.= '<td><div class="wttentry">'.$row->id.'. '.$row->entryname.'</div></td><td>'.$row->mon.'</td><td>'.$row->tue.'</td><td>'.$row->wed.'</td><td>'.$row->thu.'</td><td>'.$row->fri.'</td><td>'.$row->sat.'</td><td>'.$row->sun.'</td></tr>';
+				$outp.= '<td><div class="wttentry">'.$row->id.'. '.html_entity_decode($row->entryname).'</div></td><td>'.html_entity_decode($row->mon).'</td><td>'.html_entity_decode($row->tue).'</td><td>'.html_entity_decode($row->wed).'</td><td>'.html_entity_decode($row->thu).'</td><td>'.html_entity_decode($row->fri).'</td><td>'.html_entity_decode($row->sat).'</td><td>'.html_entity_decode($row->sun).'</td></tr>';
 			}  
 			$outp.='</table><hr/>';
 	
@@ -273,7 +286,7 @@ function wttPlugIn_load_translation_file() {
 			$wpdb->show_errors(true);
 			if (isset($_POST['act']) && ($_POST['act'] == "addentry"))
 			{
-				$sql = $wpdb->prepare("insert into ".WTT_ENTRYTABLE." (entryname) values(%s)",$_POST['entryname']);
+				$sql = $wpdb->prepare("insert into ".WTT_ENTRYTABLE." (entryname) values(%s)",htmlentities($_POST['entryname'], ENT_QUOTES));
 				$wpdb->get_results($sql);
 			}
 			
@@ -290,7 +303,7 @@ function wttPlugIn_load_translation_file() {
 	
 			if (isset($_POST['act']) && ($_POST['act'] == "edtentry"))
 			{
-				$sql= $wpdb->prepare("UPDATE ".WTT_ENTRYTABLE." set entryname=%s where id= %d",$_POST['entryname'],$_POST['pid']);
+				$sql= $wpdb->prepare("UPDATE ".WTT_ENTRYTABLE." set entryname=%s where id= %d",htmlentities($_POST['entryname'], ENT_QUOTES),$_POST['pid']);
 				$wpdb->query($sql);
 	
 			}
@@ -308,7 +321,7 @@ function wttPlugIn_load_translation_file() {
 				  $outp = '<br/><br/><img src="'.WTT_DIR_URL.'/img/pencil.png" alt="edit an entry"/>'.__('Modify this entry','wttPlugIn').'<form method="post" action="">';
 				  $outp .= '<table>
 				  <tr>
-				  <td>'.__('Entry','wttPlugIn').'</td><td><input type="text" name="entryname" size="50" value="'.$rows->entryname.'"/></td>
+				  <td>'.__('Entry','wttPlugIn').'</td><td><input type="text" name="entryname" size="50" value="'.html_entity_decode($rows->entryname).'"/></td>
 				  </tr>	
 				  </table>
 				  <input type="hidden" name="pid" value="'.$_GET['pid'].'">
@@ -348,14 +361,14 @@ function wttPlugIn_load_translation_file() {
 	
 			if (isset($_POST['act']) && ($_POST['act'] == "edtwtt"))
 			{
-				$sql= $wpdb->prepare("UPDATE ".WTT_TIMETABLE." set mon=%s ,tue=%s , wed=%s ,thu=%s ,fri=%s ,sat=%s ,sun=%s where id=%d",$_POST['mon'], $_POST['tue'], $_POST['wed'], $_POST['thu'], $_POST['fri'],$_POST['sat'],$_POST['sun'],$_POST['pid']);
+				$sql= $wpdb->prepare("UPDATE ".WTT_TIMETABLE." set mon=%s ,tue=%s , wed=%s ,thu=%s ,fri=%s ,sat=%s ,sun=%s where id=%d",htmlentities($_POST['mon'], ENT_QUOTES), htmlentities($_POST['tue'], ENT_QUOTES), htmlentities($_POST['wed'], ENT_QUOTES), htmlentities($_POST['thu'], ENT_QUOTES), htmlentities($_POST['fri'], ENT_QUOTES),htmlentities($_POST['sat'], ENT_QUOTES),htmlentities($_POST['sun'], ENT_QUOTES),$_POST['pid']);
 				$wpdb->query($sql);
 	
 			}
 			
 			if (isset($_POST['act']) && ($_POST['act'] == "addwtt"))
 			{
-				$sql = $wpdb->prepare( "INSERT INTO ".WTT_TIMETABLE."( id_entry,mon, tue, wed, thu, fri, sat, sun ) VALUES ( %d, %s, %s, %s, %s, %s, %s, %s )", $_POST['id_entry'], $_POST['mon'], $_POST['tue'], $_POST['wed'], $_POST['thu'], $_POST['fri'],$_POST['sat'],$_POST['sun'] );
+				$sql = $wpdb->prepare( "INSERT INTO ".WTT_TIMETABLE."( id_entry,mon, tue, wed, thu, fri, sat, sun ) VALUES ( %d, %s, %s, %s, %s, %s, %s, %s )", htmlentities($_POST['id_entry'], ENT_QUOTES), htmlentities($_POST['mon'], ENT_QUOTES), htmlentities($_POST['tue'], ENT_QUOTES), htmlentities($_POST['wed'], ENT_QUOTES), htmlentities($_POST['thu'], ENT_QUOTES), htmlentities($_POST['fri'], ENT_QUOTES),htmlentities($_POST['sat'], ENT_QUOTES),htmlentities($_POST['sun'], ENT_QUOTES) );
 				$wpdb->get_results($sql);
 			}
 	
@@ -369,17 +382,17 @@ function wttPlugIn_load_translation_file() {
 				  $sql = "select h.id, e.entryname as entryn, mon, tue, wed, thu, fri, sat, sun from ".WTT_TIMETABLE." h, ".WTT_ENTRYTABLE." e where h.id_entry = e.id and h.id=".$_GET['pid']; 
 				  $rows = $wpdb->get_row($sql);
 				  $outp = '<br/><br/><img src="'.WTT_DIR_URL.'/img/pencil.png" alt="edit a wtt"/>'.__('Modify this time table','wttPlugIn').'<form method="post" action="">';
-				  $outp .= '<strong>'.__('Entry','wttPlugIn').' : </strong>'.$rows->entryn.'<br/><br/>';
+				  $outp .= '<strong>'.__('Entry','wttPlugIn').' : </strong>'.html_entity_decode($rows->entryn).'<br/><br/>';
 				  $outp .= tablehead();
 				  $outp .= '<tr><td>ex.15h-17h</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 				  <tr>
-				  <td><input type="text" name="mon" size="10" value="'.$rows->mon.'"/></td>
-				  <td><input type="text" name="tue" size="10" value="'.$rows->tue.'"/></td>
-				  <td><input type="text" name="wed" size="10" value="'.$rows->wed.'"/></td>
-				  <td><input type="text" name="thu" size="10" value="'.$rows->thu.'"/></td>
-				  <td><input type="text" name="fri" size="10" value="'.$rows->fri.'"/></td>
-				  <td><input type="text" name="sat" size="10" value="'.$rows->sat.'"/></td>
-				  <td><input type="text" name="sun" size="10" value="'.$rows->sun.'"/></td>
+				  <td><input type="text" name="mon" size="10" value="'.html_entity_decode($rows->mon).'"/></td>
+				  <td><input type="text" name="tue" size="10" value="'.html_entity_decode($rows->tue).'"/></td>
+				  <td><input type="text" name="wed" size="10" value="'.html_entity_decode($rows->wed).'"/></td>
+				  <td><input type="text" name="thu" size="10" value="'.html_entity_decode($rows->thu).'"/></td>
+				  <td><input type="text" name="fri" size="10" value="'.html_entity_decode($rows->fri).'"/></td>
+				  <td><input type="text" name="sat" size="10" value="'.html_entity_decode($rows->sat).'"/></td>
+				  <td><input type="text" name="sun" size="10" value="'.html_entity_decode($rows->sun).'"/></td>
 				  </tr>	
 				  </table>
 				  <input type="hidden" name="pid" value="'.$_GET['pid'].'">
@@ -425,17 +438,18 @@ function wttPlugIn_load_translation_file() {
 		   extract(shortcode_atts(array(
 			'entry_id' => 'entry_id',
 		   ), $atts));
-	
-		   $sql="select * from ".WTT_TIMETABLE." h, ".WTT_ENTRYTABLE." e where h.id_entry = e.id  and h.id = ".$entry_id;
-		   $rows = $wpdb->get_results($sql);
-		   $outp =  tablehead(1);
+
+                   $outp =  tablehead(1);
+                   $sql="select * from ".WTT_TIMETABLE." h, ".WTT_ENTRYTABLE." e where h.id_entry = e.id  and h.id IN (".$entry_id.")";
+                   $rows = $wpdb->get_results($sql);
 		   
-		    foreach($rows as $row)
-			{
-				 $outp .= '<tr><td><span id="wttentry">'.$row->entryname.'</span></td><td>'.$row->mon.'</td><td>'.$row->tue.'</td><td>'.$row->wed.'</td><td>'.$row->thu.'</td><td>'.$row->fri.'</td><td>'.$row->sat.'</td><td>'.$row->sun.'</td></tr>';		
-			}
-			$outp .= '</table>';
-			return $outp;
+                        foreach($rows as $row)
+                            {
+                                     $outp .= '<tr><td><span id="wttentry">'.html_entity_decode($row->entryname).'</span></td><td>'.html_entity_decode($row->mon).'</td><td>'.html_entity_decode($row->tue).'</td><td>'.html_entity_decode($row->wed).'</td><td>'.html_entity_decode($row->thu).'</td><td>'.html_entity_decode($row->fri).'</td><td>'.html_entity_decode($row->sat).'</td><td>'.html_entity_decode($row->sun).'</td></tr>';
+                            }
+
+                    $outp .= '</table>';
+                    return $outp;
 	    
 		}
 
