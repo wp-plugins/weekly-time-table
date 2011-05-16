@@ -1,0 +1,11 @@
+/*
+ * The time table
+ */
+#wtt {padding:2px;}
+#wtt th { background-color:#DDDDDD; padding:5px;}
+#wtt tr { background-color:#EEEEEE;padding:5px;}
+#wtt td {padding:3px; }
+/*
+ * The entry inside the table
+ */
+#wtt .wttentry {font-weight:bold}
