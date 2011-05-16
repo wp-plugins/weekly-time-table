@@ -1,13 +1,13 @@
 === Weekly TimeTable - Wordpress PlugIn ===
 Contributors: X. Villamuera
 Author: X. Villamuera
-Author URI: http://blog.fifteenpeas.com/
-Plugin URI: http://blog.fifteenpeas.com/wordpress/wordpress-weekly-time-table-plugin/
+Author URI: http://www.fifteenpeas.com/
+Plugin URI: http://www.fifteenpeas.com/blog/wordpress-weekly-time-table-plugin/
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FRBWAGNGFZZ6U&item_name=Donate%20for%3a%20Weekly%20Time%20Table%20Wordpress%20Plugin&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&charset=UTF%2d8
 Tags: Time table, weekly time table
 Requires at least: 2.0.2
-Tested up to: 2.9.2
-Stable Tag: 1.0
+Tested up to: 3.1
+Stable Tag: 1.2
 
 Create infinite time tables for the week and display them on your site
 
@@ -21,7 +21,7 @@ Whenever you create an entry you can associate it with a time table. Each cell i
 Then you can use a shortcode with the entry id as a parameter.
 
 For more information check the plugin homepage:
-http://blog.fifteenpeas.com/wordpress/wordpress-weekly-time-table-plugin/
+http://www.fifteenpeas.com/blog/wordpress-weekly-time-table-plugin/
 
 == Installation ==
 
@@ -31,7 +31,7 @@ http://blog.fifteenpeas.com/wordpress/wordpress-weekly-time-table-plugin/
 
 Use this shortcode anywhere :
 
-[wttdsp entry_id=5] where 5 is the id of the time table.
+[wttdsp entry_id=5] where 5 is the id of the time table...or [wttdsp entry_id=5,17,8] for multiple entries.
  
 
 == Frequently Asked Questions ==
@@ -45,6 +45,11 @@ Of course !
 3. Admin WTT management 
 
 == Changelog ==
+
+= 1.2 =
+*I18n ready
+*Possibility to add multiple entries (shortcode with ID list) for one time table
+*Possibility to enter html as entries
 
 = 1.0 =
 * First Version
