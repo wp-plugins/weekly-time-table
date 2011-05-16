@@ -31,12 +31,12 @@ http://www.fifteenpeas.com/blog/wordpress-weekly-time-table-plugin/
 
 Use this shortcode anywhere :
 
-[wttdsp entry_id=5] where 5 is the id of the time table...or [wttdsp entry_id=5,17,8] for multiple entries.
+[wttdsp entry_id=5] where 5 is the id of the time table...or [wttdsp entry_id=5,17,8] for multiple entries (version1.2).
  
 
 == Frequently Asked Questions ==
-= yes ? =
-Of course !
+= Is it possible to make multiple entries ? =
+Yes, just use the shorcoce with a list : [wttdsp entry_id=5,17,8]
 
 == Screenshots ==
 
@@ -47,9 +47,9 @@ Of course !
 == Changelog ==
 
 = 1.2 =
-*I18n ready
-*Possibility to add multiple entries (shortcode with ID list) for one time table
-*Possibility to enter html as entries
+-I18n ready
+-Possibility to add multiple entries (shortcode with ID list) for one time table
+-Possibility to enter html as entries
 
 = 1.0 =
 * First Version
