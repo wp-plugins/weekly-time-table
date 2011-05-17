@@ -3,7 +3,7 @@
 Plugin Name: Weekly TimeTable WP Plugin
 Plugin URI: http://www.fifteenpeas.com/blog/wordpress-weekly-time-table/
 Description: create weekly time tables and display them on your site.
-Version: 1.2
+Version: 1.3
 Author: X Villamuera
 Author URI: http://www.fifteenpeas.com
 */
