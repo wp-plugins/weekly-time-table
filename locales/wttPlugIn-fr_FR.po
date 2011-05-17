@@ -1,0 +1,134 @@
+# Copyright (C) 2010 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: weekly Time table V1.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-05-17 16:11+0100\n"
+"PO-Revision-Date: 2011-05-17 16:13+0100\n"
+"Last-Translator: X.Villamuera <gzav@sio4.net>\n"
+"Language-Team: fifteenpeas.com <xavier@fifteenpeas.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: LUXEMBOURG\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../wtt.php:153
+msgid "Weekly Time Table"
+msgstr "Horaire Hebdomadaire"
+
+#: ../wtt.php:154
+msgid "Time Table Management for your WordPress Site"
+msgstr "Gestionaire d'horaire"
+
+#: ../wtt.php:158
+msgid "Usage"
+msgstr "Utilisation"
+
+#: ../wtt.php:159
+#, fuzzy
+msgid ""
+"You must first create an entry to create a Time Table.The plugin doesn't format. However, length is limited to 30 caracters. Each <em>Wtt time table</em> has\n"
+"                        an id that should be used when displaying it using the shortcode.<br/>The shortcode to display the time table is <em><strong>[wttdsp entry_id=5]</strong></em>, where 5 \n"
+"                        is an id of a <em>time table</em>. You can put a list of IDs in the shortcode to have a multiple entries time table, just like this <em><strong>[wttdsp entry_id=5,17,9]</strong></em>.<br/>\n"
+"\t\t\tUse css to style your timetable. A time table as an <em>id='wtt'</em> attribute.<br/>\tWhen displayed, the entry is in a container with attribute : <em>id='wttentry'</em>\n"
+"\t\t\t<br/><br/>As an example, this is the css that is used in the admin side :<br/>\n"
+"\t\t\t<em>#wtt {padding:2px;}<br/>#wtt th { background-color:#DDDDDD; padding:5px;}<br/>#wtt tr { background-color:#EEEEEE;padding:5px;}<br/>#wtt td {padding:3px; } </em><br/><br/>It's a simple plugin, feel free to adapt it at will !"
+msgstr "En premier lieux, créez votre horaire. Ensuite créez une entrée pour cet horaire <br/>. Vous pouvez mettre ce que vous voulez dans les champs. Le plugin ne fait aucun formattage. Cependant, la longeur limite des champs est de 30 caractères. Chaque entrée d'un horaire comporte un identifiant que devra être utilisé dans le \"shorcode\".<br/>Pour afficher un horaire, utiliser le shortcode suivant <em><strong>[wttdsp entry_id=5]</strong></em> ou 5 est l'identifiant de l'entrée. Vouspouvez utilisez une liste d'identifiants pour un horaire avec de multiples entrées, comme ceci <em><strong>[wttdsp entry_id=5,17,9]</strong></em>.Utilisez le css pour styliser vos tables d'horaire. La table d'horaire a un attribut <em>id='wtt'</em>.<br/>Voici un exemple de CSS :<br/><em>#wtt {padding:2px;}<br/>#wtt th { background-color:#DDDDDD; padding:5px;}<br/>#wtt tr { background-color:#EEEEEE;padding:5px;}<br/>#wtt td {padding:3px; } </em><br/><br/>Simple et facile a adapter !"
+
+#: ../wtt.php:231
+msgid "Id. Entry"
+msgstr "Entrée"
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "mon"
+msgstr "lun"
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "tue"
+msgstr "mar"
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "wed"
+msgstr "mer"
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "thu"
+msgstr "jeu"
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "fri"
+msgstr "vend"
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "sat"
+msgstr "sam"
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "sun"
+msgstr "dim"
+
+#: ../wtt.php:244
+msgid "Edit a Time Table"
+msgstr "editer un horaire"
+
+#: ../wtt.php:245
+msgid "edit a time table"
+msgstr "editez un horaire"
+
+#: ../wtt.php:246
+#: ../wtt.php:247
+msgid "delete a time table"
+msgstr "effacer un horaire"
+
+#: ../wtt.php:301
+msgid "Manage entries for WTT"
+msgstr "Gérez les entrées"
+
+#: ../wtt.php:302
+msgid "Existing Time Tables"
+msgstr "Horaires existants"
+
+#: ../wtt.php:304
+msgid "Existing Entries"
+msgstr "entrées existantes"
+
+#: ../wtt.php:310
+msgid "Modify this entry"
+msgstr "modifiez cette entrée"
+
+#: ../wtt.php:313
+#: ../wtt.php:326
+#: ../wtt.php:374
+msgid "Entry"
+msgstr "Entrée"
+
+#: ../wtt.php:323
+msgid "Create an entry."
+msgstr "Créez une entrée"
+
+#: ../wtt.php:365
+msgid "Manage Weekly Time Table"
+msgstr "Gérer les tables d'horaire"
+
+#: ../wtt.php:366
+msgid "Choose time table to edit"
+msgstr "Choisir un horaire a éditer"
+
+#: ../wtt.php:373
+msgid "Modify this time table"
+msgstr "Modifier cet horaire"
+
+#: ../wtt.php:395
+msgid "Create a time table."
+msgstr "Créez une table d'horaire"
+

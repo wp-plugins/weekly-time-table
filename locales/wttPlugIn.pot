@@ -1,0 +1,133 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Weekly Time Table\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-05-17 16:11+0100\n"
+"PO-Revision-Date: 2011-05-17 16:12+0100\n"
+"Last-Translator: X.Villamuera <gzav@sio4.net>\n"
+"Language-Team: fifteenpeas.com <xavier@fifteenpeas.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: LUXEMBOURG\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../wtt.php:153
+msgid "Weekly Time Table"
+msgstr ""
+
+#: ../wtt.php:154
+msgid "Time Table Management for your WordPress Site"
+msgstr ""
+
+#: ../wtt.php:158
+msgid "Usage"
+msgstr ""
+
+#: ../wtt.php:159
+msgid ""
+"You must first create an entry to create a Time Table.The plugin doesn't format. However, length is limited to 30 caracters. Each <em>Wtt time table</em> has\n"
+"                        an id that should be used when displaying it using the shortcode.<br/>The shortcode to display the time table is <em><strong>[wttdsp entry_id=5]</strong></em>, where 5 \n"
+"                        is an id of a <em>time table</em>. You can put a list of IDs in the shortcode to have a multiple entries time table, just like this <em><strong>[wttdsp entry_id=5,17,9]</strong></em>.<br/>\n"
+"\t\t\tUse css to style your timetable. A time table as an <em>id='wtt'</em> attribute.<br/>\tWhen displayed, the entry is in a container with attribute : <em>id='wttentry'</em>\n"
+"\t\t\t<br/><br/>As an example, this is the css that is used in the admin side :<br/>\n"
+"\t\t\t<em>#wtt {padding:2px;}<br/>#wtt th { background-color:#DDDDDD; padding:5px;}<br/>#wtt tr { background-color:#EEEEEE;padding:5px;}<br/>#wtt td {padding:3px; } </em><br/><br/>It's a simple plugin, feel free to adapt it at will !"
+msgstr ""
+
+#: ../wtt.php:231
+msgid "Id. Entry"
+msgstr ""
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "mon"
+msgstr ""
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "tue"
+msgstr ""
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "wed"
+msgstr ""
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "thu"
+msgstr ""
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "fri"
+msgstr ""
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "sat"
+msgstr ""
+
+#: ../wtt.php:231
+#: ../wtt.php:265
+msgid "sun"
+msgstr ""
+
+#: ../wtt.php:244
+msgid "Edit a Time Table"
+msgstr ""
+
+#: ../wtt.php:245
+msgid "edit a time table"
+msgstr ""
+
+#: ../wtt.php:246
+#: ../wtt.php:247
+msgid "delete a time table"
+msgstr ""
+
+#: ../wtt.php:301
+msgid "Manage entries for WTT"
+msgstr ""
+
+#: ../wtt.php:302
+msgid "Existing Time Tables"
+msgstr ""
+
+#: ../wtt.php:304
+msgid "Existing Entries"
+msgstr ""
+
+#: ../wtt.php:310
+msgid "Modify this entry"
+msgstr ""
+
+#: ../wtt.php:313
+#: ../wtt.php:326
+#: ../wtt.php:374
+msgid "Entry"
+msgstr ""
+
+#: ../wtt.php:323
+msgid "Create an entry."
+msgstr ""
+
+#: ../wtt.php:365
+msgid "Manage Weekly Time Table"
+msgstr ""
+
+#: ../wtt.php:366
+msgid "Choose time table to edit"
+msgstr ""
+
+#: ../wtt.php:373
+msgid "Modify this time table"
+msgstr ""
+
+#: ../wtt.php:395
+msgid "Create a time table."
+msgstr ""
+
