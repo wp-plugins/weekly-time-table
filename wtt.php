@@ -29,15 +29,23 @@ global $wpdb;
 $dir = preg_replace("/^.*[\/\\\]/", "", dirname(__FILE__));
 define ("WTT_DIR", "/wp-content/plugins/" . $dir);
 define("WTT_DIR_URL",get_bloginfo('wpurl') .WTT_DIR);
-define ("WTT_DIR_I18N", WTT_DIR . "/locales");
+define ("WTT_DIR_I18N", WTT_DIR . "/locales/");
 define ("WTT_TIMETABLE",$wpdb->prefix . "wtt_timetables");
 define ("WTT_ENTRYTABLE",$wpdb->prefix . "wtt_ttentries");
+
+
 
 
 add_action('init', 'wttPlugIn_load_translation_file');
 
 function wttPlugIn_load_translation_file() {
-	load_plugin_textdomain( 'wttPlugIn', false, WTT_DIR_I18N );
+	// get current language
+	$locale = get_locale();
+        $plugin_dir = basename(dirname(__FILE__));
+	load_plugin_textdomain( 'wttPlugIn','wp-content/plugins/' . $plugin_dir,$plugin_dir.'\locales' );
+        //WTT_DIR_I18N.'wttPlugIn_'.$locale.'.mo'
+       
+        
 }
 
 	/*
@@ -48,7 +56,7 @@ function wttPlugIn_load_translation_file() {
 		function wtt_install () {
 		   global $wpdb;
 		   global $wtt_db_version;
-		   $wtt_db_version 		= "1.2";
+		   $wtt_db_version 		= "1.3";
 			
 			
 		   	//create timetables table
@@ -98,23 +106,13 @@ function wttPlugIn_load_translation_file() {
 		  	$installed_ver = get_option( "wtt_db_version" );
 		  	if( $installed_ver != $wtt_db_version ) {
 		  		//the new sql version (but this is fake)
-		  		$sql = "CREATE TABLE " . WTT_ENTRYTABLE . " (
-					    id INT NOT NULL AUTO_INCREMENT  PRIMARY KEY,
-					    entryname VARCHAR( 180 )
-				   		);";
+		  		$sql = "Alter TABLE " . WTT_ENTRYTABLE . " 
+					    MODIFY  entryname VARCHAR( 180 )
+				   		;";
 				dbDelta($sql);
-                                $sql = "CREATE TABLE " . WTT_TIMETABLE . " (
-						id INT NOT NULL AUTO_INCREMENT,
-						id_entry INT NOT NULL ,
-						mon VARCHAR( 30 ) NULL ,
-						tue VARCHAR( 30 ) NULL ,
-						wed VARCHAR( 30 ) NULL ,
-						thu VARCHAR( 30 ) NULL ,
-						fri VARCHAR( 30 ) NULL ,
-						sat VARCHAR( 30 ) NULL ,
-						sun VARCHAR( 30 ) NULL,
-						UNIQUE KEY id (id)
-						);";
+                                $sql = "alter TABLE " . WTT_TIMETABLE . " 
+										MODIFY mon VARCHAR( 30 ), MODIFY tue VARCHAR( 30 ),MODIFY wed VARCHAR( 30 ),
+						MODIFY thu VARCHAR( 30 ),MODIFY fri VARCHAR( 30 ) ,MODIFY sat VARCHAR( 30 ),MODIFY sun VARCHAR( 30 );";
 				dbDelta($sql);
 				//change the version option of this plugin (not for this install)
 		    	update_option( "wtt_db_version", $wtt_db_version );
@@ -158,21 +156,12 @@ function wttPlugIn_load_translation_file() {
 			$outp .= "<p>This is an example:</p>";
 			$outp.= wttdsp(0);
 			$outp .= "<h2>".__('Usage','wttPlugIn')."</h2>";
-			$outp .= __('You must first create an entry to create a Time Table.
-                        Then create a time table for that entry.<br/> You can input whatever you want to display in the fields.
-                        The plugin doesn\'t format. However, length is limited to 30 caracters. Each <em>Wtt time table</em> has
-                        an id that should be used when displaying it using the shortcode.<br/>
-			The shortcode to display the time table is <em><strong>[wttdsp entry_id=5]</strong></em>, where 5 
-                        is an id of a <em>time table</em>. You can put a list of IDs in the shortcode to have a
-                        multiple entries time table, just like this <em><strong>[wttdsp entry_id=5,17,9]</strong></em>.<br/>
-			Use css to style your timetable. A time table as an <em>id=\'wtt\'</em> attribute.<br/>
-			When displayed, the entry is in a container with attribute : <em>id=\'wttentry\'</em>
+			$outp .= __('You must first create an entry to create a Time Table.The plugin doesn\'t format. However, length is limited to 30 caracters. Each <em>Wtt time table</em> has
+                        an id that should be used when displaying it using the shortcode.<br/>The shortcode to display the time table is <em><strong>[wttdsp entry_id=5]</strong></em>, where 5 
+                        is an id of a <em>time table</em>. You can put a list of IDs in the shortcode to have a multiple entries time table, just like this <em><strong>[wttdsp entry_id=5,17,9]</strong></em>.<br/>
+			Use css to style your timetable. A time table as an <em>id=\'wtt\'</em> attribute.<br/>	When displayed, the entry is in a container with attribute : <em>id=\'wttentry\'</em>
 			<br/><br/>As an example, this is the css that is used in the admin side :<br/>
-			<em>#wtt {padding:2px;}<br/>
-			#wtt th { background-color:#DDDDDD; padding:5px;}<br/>
-			#wtt tr { background-color:#EEEEEE;padding:5px;}<br/>
-			#wtt td {padding:3px; } </em>
-			<br/><br/>It\'s a simple plugin, feel free to adapt it at will !','wttPlugIn');
+			<em>#wtt {padding:2px;}<br/>#wtt th { background-color:#DDDDDD; padding:5px;}<br/>#wtt tr { background-color:#EEEEEE;padding:5px;}<br/>#wtt td {padding:3px; } </em><br/><br/>It\'s a simple plugin, feel free to adapt it at will !','wttPlugIn');
 			$outp .= '<br/><div><table class="widefat" style="margin-top: .5em"><thead><tr valign="top">
 			<th>Fifteenpeas Weekly Time Table WP plugin</th></tr></thead><tbody><tr>	
 			<td>Find me on <a href="http://www.fifteenpeas.com/goodies/wordpress-weekly-time-table-plugin/" target="_blank">http://www.fifteenpeas.com/goodies/wordpress-weekly-time-table-plugin/</a>.<br/>
